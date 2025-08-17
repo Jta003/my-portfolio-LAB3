@@ -3,15 +3,17 @@ import './Contact.css';
 
 function Contact() {
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact section">
       <div className="container">
         <h2 className="section-title">Get In Touch</h2>
+        <p className="section-subtitle">
+          I'm always interested in hearing about new projects and opportunities.
+        </p>
+
         <div className="contact-content">
           
           {/* Contact Info */}
           <div className="contact-info">
-            <p>I'm always interested in hearing about new projects and opportunities.</p>
-
             <div className="contact-details">
               <div className="contact-item">
                 📫 
@@ -52,7 +54,6 @@ function Contact() {
             </div>
             <button type="submit" className="btn btn-primary">Send Message</button>
           </form>
-
         </div>
       </div>
     </section>
