@@ -21,3 +21,25 @@
   text-decoration: underline; 
   color: inherit;             
 }
+.project-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  background: white;
+  color: #3498db;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: #3498db;
+  color: white;
+}
+

@@ -1,8 +1,38 @@
-// src/components/Projects/Projects.jsx - Template
-import './Projects.css';
+// src/components/Projects/Projects.jsx
+import { useState } from 'react';
+import ProjectsCard from './ProjectsCard.jsx';
 import Mini from "../../assets/images/Mini.png";
 import Weather from "../../assets/images/Weather.png";
+import './Projects.css';
+
 function Projects() {
+  // Project data with technologies
+  const [filter, setFilter] = useState('all');
+
+  const projects = [
+    {
+      id: 1,
+      title: "Mini-ecommerce-collaboration",
+      image: Mini,
+      liveLink: "https://jta003.github.io/mini-ecommerce-collaboration/",
+      technologies: ["css", "javascript"]
+    },
+    {
+      id: 2,
+      title: "My-Weather-app",
+      image: Weather,
+      liveLink: "https://jta003.github.io/my-weather-app/",
+      technologies: ["api", "css"]
+    }
+  ];
+
+  const technologies = ['all', ...new Set(projects.flatMap(p => p.technologies || []))];
+
+  // Filter projects based on selected technology
+  const filteredProjects = filter === 'all'
+    ? projects
+    : projects.filter(project => project.technologies.includes(filter));
+
   return (
     <section id="projects" className="projects section">
       <div className="container">
@@ -10,24 +40,33 @@ function Projects() {
         <p className="section-subtitle">
           Here are some of the projects I've worked on recently.
         </p>
-        
-        {/* TODO: นักศึกษาเพิ่ม project list ที่นี่ */}
+
+        {/* Filter Buttons */}
+        <div className="project-filters">
+          {technologies.map(tech => (
+            <button
+              key={tech}
+              className={`filter-btn ${filter === tech ? 'active' : ''}`}
+              onClick={() => setFilter(tech)}
+            >
+              {tech.charAt(0).toUpperCase() + tech.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects Grid */}
         <div className="projects-grid">
-          <div className="project-placeholder">
-            <h3>
-            <a href="https://jta003.github.io/mini-ecommerce-collaboration/"  className='heading-link'>
-            Mini-ecommerce-collaboration
-            </a></h3>
-            <img src={Mini} alt="Mini logo" className="project-img" />
-            <h3>
-            <a href="https://jta003.github.io/my-weather-app/"  className='heading-link'>
-            My-Weather-app
-            </a></h3>
-            <img src={Weather} alt="My-Weather-app" className="project-img" />
+          {filteredProjects.map(project => (
+            <ProjectsCard key={project.id} project={project} />
+          ))}
         </div>
-        </div>
-        </div>
-        
+
+        {filteredProjects.length === 0 && (
+          <div className="no-projects">
+            <p>No projects found for this technology.</p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
